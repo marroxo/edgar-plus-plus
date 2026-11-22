@@ -10,7 +10,7 @@ Za međuispite i završne ispite prepoznaje godinu, termin i broj zadatka, npr. 
 
 Za preglednik koristi potpisani paket s [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/edgar-plus-plus/). Izvorni kod u direktoriju `firefox` možeš privremeno učitati za razvoj preko `about:debugging` → **This Firefox** → **Load Temporary Add-on** → `firefox/manifest.json`.
 
-Za VS Code preuzmi `.vsix` iz [GitHub izdanja](https://github.com/marroxo/edgar-plus-plus/releases) pa u VS Codeu otvori **Extensions** → **Install from VSIX…**. Za lokalno pokretanje C primjera potreban je GCC na putanji `PATH`.
+Za VS Code koristi [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=marroxo.edgar-spojenie). Ako si prethodno instalirao lokalnu verziju `local.edgar-spojenie`, onemogući je prije korištenja Marketplace verzije jer obje koriste isti lokalni priključak. Ručna instalacija dostupna je preko `.vsix` paketa u [GitHub izdanjima](https://github.com/marroxo/edgar-plus-plus/releases) i opcije **Extensions** → **Install from VSIX…**. Za lokalno pokretanje C primjera potreban je GCC na putanji `PATH`.
 
 Opcija **Sakrij osobne podatke** u postavkama Edgar+ (zupčanik) zamagljuje zaglavlje s fotografijom i tekstom profila. Ista postavka dostupna je u izborniku dodatka.
 
