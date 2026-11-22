@@ -1,4 +1,4 @@
-# Edgar za VS Code
+# Edgar++ za VS Code
 
 Povezuje lokalnu C datoteku u stolnom VS Codeu s uređivačem zadatka za vježbu na Edgaru. Za sinkronizaciju instaliraj [Edgar++ za Firefox](https://addons.mozilla.org/firefox/addon/edgar-plus-plus/) i u Edgarovoj alatnoj traci klikni **VS Code · Spoji**.
 
