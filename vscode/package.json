@@ -1,0 +1,37 @@
+{
+  "name": "edgar-spojenie",
+  "displayName": "Edgar za VS Code",
+  "version": "0.3.9",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:edgar.start",
+    "onCommand:edgar.run",
+    "onCommand:edgar.stop",
+    "onCommand:edgar.localTests"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "edgar.start",
+        "title": "Edgar: Uključi povezivanje"
+      },
+      {
+        "command": "edgar.run",
+        "title": "Edgar: Pokreni provjeru"
+      },
+      {
+        "command": "edgar.stop",
+        "title": "Edgar: Isključi povezivanje"
+      },
+      {
+        "command": "edgar.localTests",
+        "title": "Edgar: Lokalno provjeri primjere"
+      }
+    ]
+  }
+}

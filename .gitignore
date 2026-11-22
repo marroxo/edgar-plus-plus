@@ -1,0 +1,5 @@
+/*.xpi
+/*.vsix
+/*.zip
+/provjera*.c
+node_modules/
