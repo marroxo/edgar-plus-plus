@@ -3,7 +3,7 @@
   "displayName": "Edgar za VS Code",
   "description": "Sinkronizira lokalni C kod s Edgarovim uređivačem i pokreće lokalne provjere primjera.",
   "version": "0.3.9",
-  "publisher": "local",
+  "publisher": "marroxo",
   "repository": {
     "type": "git",
     "url": "https://github.com/marroxo/edgar-plus-plus.git"
