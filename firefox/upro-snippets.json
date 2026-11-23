@@ -1,0 +1,1225 @@
+{
+  "main": {
+    "prefix": "umain",
+    "body": [
+      "#include <stdio.h>",
+      "",
+      "int main(void) {",
+      "    $0",
+      "    return 0;",
+      "}"
+    ],
+    "description": "Umetni osnovni C program"
+  },
+  "for petlja": {
+    "prefix": "ufor",
+    "body": [
+      "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Prođi kroz indekse od 0 do n − 1"
+  },
+  "prolaz matrice": {
+    "prefix": "umatrica",
+    "body": [
+      "for (int ${1:i} = 0; ${1:i} < ${2:m}; ${1:i}++) {",
+      "    for (int ${3:j} = 0; ${3:j} < ${4:n}; ${3:j}++) {",
+      "        $0",
+      "    }",
+      "}"
+    ],
+    "description": "Prođi kroz retke i stupce matrice"
+  },
+  "ispis 16 bitova": {
+    "prefix": "ubitovi",
+    "body": [
+      "for (int ${1:i} = 15; ${1:i} >= 0; ${1:i}--) {",
+      "    printf(\"%u\", (${2:broj} >> ${1:i}) & 1u);",
+      "}",
+      "$0"
+    ],
+    "description": "Ispiši 16 bitova slijeva nadesno"
+  },
+  "unos int": {
+    "prefix": "uscan",
+    "body": [
+      "scanf(\"%d\", &${1:broj});$0"
+    ],
+    "description": "Učitaj jedan broj tipa int"
+  },
+  "vrijednost bita": {
+    "prefix": "ubitcitaj",
+    "body": [
+      "unsigned int ${1:bit} = (${2:broj} >> ${3:pozicija}) & 1u;",
+      "$0"
+    ],
+    "description": "Pročitaj bit na zadanoj poziciji"
+  },
+  "bit na 1": {
+    "prefix": "ubit1",
+    "body": [
+      "${1:broj} |= 1u << ${2:pozicija};",
+      "$0"
+    ],
+    "description": "Postavi odabrani bit na 1"
+  },
+  "bit na 0": {
+    "prefix": "ubit0",
+    "body": [
+      "${1:broj} &= ~(1u << ${2:pozicija});",
+      "$0"
+    ],
+    "description": "Postavi odabrani bit na 0"
+  },
+  "promijeni bit": {
+    "prefix": "ubitokreni",
+    "body": [
+      "${1:broj} ^= 1u << ${2:pozicija};",
+      "$0"
+    ],
+    "description": "Preokreni odabrani bit (0 ↔ 1)"
+  },
+  "postavi bit": {
+    "prefix": "ubitpostavi",
+    "body": [
+      "if (${1:vrijednost} == 1) {",
+      "    ${2:broj} |= 1u << ${3:pozicija};",
+      "} else {",
+      "    ${2:broj} &= ~(1u << ${3:pozicija});",
+      "}",
+      "$0"
+    ],
+    "description": "Upiši zadanu vrijednost u odabrani bit"
+  },
+  "Hamming 16 bitova": {
+    "prefix": "uhamming",
+    "body": [
+      "unsigned int razlika = ${1:a} ^ ${2:b};",
+      "int udaljenost = 0;",
+      "for (int i = 0; i < 16; i++) {",
+      "    udaljenost += (razlika >> i) & 1u;",
+      "}",
+      "$0"
+    ],
+    "description": "Prebroji različite bitove na 16 pozicija"
+  },
+  "najviši bit 1": {
+    "prefix": "ubitnajvisi",
+    "body": [
+      "int indeks = -1;",
+      "for (int i = 15; i >= 0; i--) {",
+      "    if ((${1:broj} >> i) & 1u) {",
+      "        indeks = i;",
+      "        break;",
+      "    }",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi indeks najvišeg bita 1 (16 bitova)"
+  },
+  "najniži bit 0": {
+    "prefix": "ubitnajnizi0",
+    "body": [
+      "int indeks = -1;",
+      "for (int i = 0; i < 16; i++) {",
+      "    if (((${1:broj} >> i) & 1u) == 0) {",
+      "        indeks = i;",
+      "        break;",
+      "    }",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi indeks najnižeg bita 0 (16 bitova)"
+  },
+  "maska bitova": {
+    "prefix": "ubitmask",
+    "body": [
+      "unsigned int ${1:polje} = (${2:broj} >> ${3:pozicija}) & ${4:31u};",
+      "$0"
+    ],
+    "description": "Izdvoji zadani raspon bitova"
+  },
+  "pakiranje bitova": {
+    "prefix": "ubitpakiraj",
+    "body": [
+      "${1:rezultat} |= (${2:vrijednost} & ${3:31u}) << ${4:pozicija};",
+      "$0"
+    ],
+    "description": "Upiši vrijednost u zadani raspon bitova"
+  },
+  "unutarnja for petlja": {
+    "prefix": "uforj",
+    "body": [
+      "for (int ${1:j} = 0; ${1:j} < ${2:n}; ${1:j}++) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Umetni unutarnju petlju s indeksom j"
+  },
+  "treća for petlja": {
+    "prefix": "ufork",
+    "body": [
+      "for (int ${1:k} = 0; ${1:k} < ${2:n}; ${1:k}++) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Umetni treću petlju s indeksom k"
+  },
+  "unos double": {
+    "prefix": "uscanfdouble",
+    "body": [
+      "scanf(\"%lf\", &${1:broj});",
+      "$0"
+    ],
+    "description": "Učitaj broj tipa double"
+  },
+  "unos polja": {
+    "prefix": "uscanfniz",
+    "body": [
+      "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {",
+      "    scanf(\"%d\", &${3:polje}[${1:i}]);",
+      "}",
+      "$0"
+    ],
+    "description": "Učitaj cijele brojeve u polje"
+  },
+  "funkcija": {
+    "prefix": "ufunkcija",
+    "body": [
+      "${1:int} ${2:naziv}(${3:void}) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Umetni predložak C funkcije"
+  },
+  "struktura": {
+    "prefix": "ustruct",
+    "body": [
+      "struct ${1:Naziv} {",
+      "    ${2:int} ${3:clan};",
+      "    $0",
+      "};"
+    ],
+    "description": "Umetni predložak strukture"
+  },
+  "zbroj polja": {
+    "prefix": "unizsum",
+    "body": [
+      "int ${1:suma} = 0;",
+      "for (int ${2:i} = 0; ${2:i} < ${3:n}; ${2:i}++) {",
+      "    ${1:suma} += ${4:polje}[${2:i}];",
+      "}",
+      "$0"
+    ],
+    "description": "Zbroji elemente polja"
+  },
+  "parovi i < j": {
+    "prefix": "uparovi",
+    "body": [
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "    for (int j = i + 1; j < ${1:n}; j++) {",
+      "        $0",
+      "    }",
+      "}"
+    ],
+    "description": "Prođi kroz svaki par indeksa jednom"
+  },
+  "unos matrice": {
+    "prefix": "ucitajmat",
+    "body": [
+      "for (int i = 0; i < ${1:m}; i++) {",
+      "    for (int j = 0; j < ${2:n}; j++) {",
+      "        scanf(\"%d\", &${3:a}[i][j]);",
+      "    }",
+      "}",
+      "$0"
+    ],
+    "description": "Učitaj cijele brojeve u matricu"
+  },
+  "znamenke broja": {
+    "prefix": "uznamenke",
+    "body": [
+      "while (${1:broj} > 0) {",
+      "    int znamenka = ${1:broj} % 10;",
+      "    $0",
+      "    ${1:broj} /= 10;",
+      "}"
+    ],
+    "description": "Izdvoji znamenke pozitivnog broja"
+  },
+  "prost broj": {
+    "prefix": "uprosti",
+    "body": [
+      "int ${1:prost} = (${2:broj} >= 2);",
+      "for (int i = 2; i <= ${2:broj} / i && ${1:prost}; i++) {",
+      "    if (${2:broj} % i == 0) {",
+      "        ${1:prost} = 0;",
+      "    }",
+      "}",
+      "$0"
+    ],
+    "description": "Provjeri je li broj prost"
+  },
+  "unos retka": {
+    "prefix": "ucitajredak",
+    "body": [
+      "char ${1:redak}[${2:1000}];",
+      "fgets(${1:redak}, sizeof ${1:redak}, stdin);",
+      "$0"
+    ],
+    "description": "Učitaj redak teksta s razmacima"
+  },
+  "minimum i maksimum": {
+    "prefix": "uminmax",
+    "body": [
+      "int min = ${1:polje}[0], max = ${1:polje}[0];",
+      "for (int i = 1; i < ${2:n}; i++) {",
+      "    if (${1:polje}[i] < min) min = ${1:polje}[i];",
+      "    if (${1:polje}[i] > max) max = ${1:polje}[i];",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi minimum i maksimum polja"
+  },
+  "presjek intervala": {
+    "prefix": "upresjek",
+    "body": [
+      "int pocetak = ${1:a} > ${2:c} ? ${1:a} : ${2:c};",
+      "int kraj = ${3:b} < ${4:d} ? ${3:b} : ${4:d};",
+      "if (pocetak <= kraj) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Odredi presjek zatvorenih intervala"
+  },
+  "rastući podniz": {
+    "prefix": "ublok",
+    "body": [
+      "int broj, prethodni, pozicija = 0;",
+      "int duljina = 0, pocetak = 0, najboljaDuljina = 0, najboljiPocetak = 0;",
+      "while (scanf(\"%d\", &broj) == 1 && broj != 0) {",
+      "    pozicija++;",
+      "    if (duljina > 0 && broj > prethodni) {",
+      "        duljina++;",
+      "    } else {",
+      "        pocetak = pozicija;",
+      "        duljina = 1;",
+      "    }",
+      "    if (duljina >= najboljaDuljina) {",
+      "        najboljaDuljina = duljina;",
+      "        najboljiPocetak = pocetak;",
+      "    }",
+      "    prethodni = broj;",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi najdulji strogo rastući blok do nule"
+  },
+  "mod retka": {
+    "prefix": "umod",
+    "body": [
+      "int brojanja[256] = {0};",
+      "for (int j = 0; j < ${1:n}; j++) {",
+      "    brojanja[${2:a}[${3:i}][j]]++;",
+      "}",
+      "int mod = 0;",
+      "for (int v = 1; v < 256; v++) {",
+      "    if (brojanja[v] >= brojanja[mod]) mod = v;",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi mod retka i pri izjednačenju uzmi veći"
+  },
+  "indeksi min i max": {
+    "prefix": "uminmaxind",
+    "description": "Nađi prve indekse minimuma i maksimuma",
+    "body": [
+      "int imin = 0, imax = 0;",
+      "for (int i = 1; i < ${1:n}; i++) {",
+      "    if (${2:a}[i] < ${2:a}[imin]) imin = i;",
+      "    if (${2:a}[i] > ${2:a}[imax]) imax = i;",
+      "}",
+      "$0"
+    ]
+  },
+  "unos retka teksta": {
+    "prefix": "ureci",
+    "description": "Učitaj redak i ukloni završni novi red",
+    "body": [
+      "if (fgets(${1:redak}, sizeof ${1:redak}, stdin) != NULL) {",
+      "    ${1:redak}[strcspn(${1:redak}, \"\\n\")] = '\\0';",
+      "}",
+      "$0"
+    ]
+  },
+  "gornji dijagonalni susjedi": {
+    "prefix": "udijagore",
+    "description": "Zbroji element i susjede gore ukoso",
+    "body": [
+      "int ${1:suma} = ${2:a}[${3:i}][${4:j}];",
+      "if (${3:i} > 0 && ${4:j} > 0)",
+      "    ${1:suma} += ${2:a}[${3:i} - 1][${4:j} - 1];",
+      "if (${3:i} > 0 && ${4:j} + 1 < ${5:n})",
+      "    ${1:suma} += ${2:a}[${3:i} - 1][${4:j} + 1];",
+      "$0"
+    ]
+  },
+  "jednaki uzastopni": {
+    "prefix": "ugrupa",
+    "description": "Obradi skupine uzastopnih jednakih vrijednosti",
+    "body": [
+      "int ${1:j} = ${2:i} + 1;",
+      "while (${1:j} < ${3:n} && ${4:a}[${1:j}] == ${4:a}[${2:i}]) {",
+      "    ${1:j}++;",
+      "}",
+      "/* grupa je na indeksima i do j-1, duljina je j-i */",
+      "$0"
+    ]
+  },
+  "faktorijel": {
+    "prefix": "ufaktorijel",
+    "description": "Izračunaj faktorijel broja od 0 do 20",
+    "body": [
+      "unsigned long long ${1:fakt} = 1;",
+      "for (int ${2:i} = 2; ${2:i} <= ${3:n}; ${2:i}++) {",
+      "    ${1:fakt} *= ${2:i};",
+      "}",
+      "$0"
+    ]
+  },
+  "ispis 32 bita": {
+    "prefix": "ubitovi32",
+    "body": [
+      "for (int i = 31; i >= 0; i--) {",
+      "    printf(\"%u\", (${1:broj} >> i) & 1u);",
+      "}",
+      "$0"
+    ],
+    "description": "Ispiši 32 bita slijeva nadesno"
+  },
+  "obrni 32 bita": {
+    "prefix": "ubitobrat32",
+    "body": [
+      "unsigned int ${1:obrnuto} = 0;",
+      "for (int i = 0; i < 32; i++) {",
+      "    ${1:obrnuto} = (${1:obrnuto} << 1) | ((${2:broj} >> i) & 1u);",
+      "}",
+      "$0"
+    ],
+    "description": "Obrni redoslijed svih 32 bita"
+  },
+  "blok jednakih": {
+    "prefix": "ublokjednakih",
+    "body": [
+      "int najboljiPocetak = 0, najboljaDuljina = 0;",
+      "for (int i = 0; i < ${1:n}; ) {",
+      "    int j = i + 1;",
+      "    while (j < ${1:n} && ${2:polje}[j] == ${2:polje}[i]) j++;",
+      "    if (j - i > najboljaDuljina) {",
+      "        najboljaDuljina = j - i;",
+      "        najboljiPocetak = i;",
+      "    }",
+      "    i = j;",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi prvi najdulji blok jednakih"
+  },
+  "najmanji razmak parova": {
+    "prefix": "uminrazmak",
+    "body": [
+      "long long najmanja = -1;",
+      "int brojParova = 0;",
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "    for (int j = i + 1; j < ${1:n}; j++) {",
+      "        long long razlika = (long long)${2:polje}[i] - ${2:polje}[j];",
+      "        if (razlika < 0) razlika = -razlika;",
+      "        if (najmanja < 0 || razlika < najmanja) {",
+      "            najmanja = razlika;",
+      "            brojParova = 1;",
+      "        } else if (razlika == najmanja) {",
+      "            brojParova++;",
+      "        }",
+      "    }",
+      "}",
+      "$0"
+    ],
+    "description": "Nađi najmanju apsolutnu razliku i prebroji parove"
+  },
+  "unos unsigned int": {
+    "prefix": "uscanfu",
+    "body": [
+      "scanf(\"%u\", &${1:broj});",
+      "$0"
+    ],
+    "description": "Učitaj broj tipa unsigned int"
+  },
+  "ispis matrice": {
+    "prefix": "uispismat",
+    "body": [
+      "for (int i = 0; i < ${1:m}; i++) {",
+      "    for (int j = 0; j < ${2:n}; j++) {",
+      "        printf(\"%5d\", ${3:a}[i][j]);",
+      "    }",
+      "    printf(\"\\n\");",
+      "}",
+      "$0"
+    ],
+    "description": "Ispiši matricu s poravnatim stupcima"
+  },
+  "obrni značajne bitove": {
+    "prefix": "ubitobratznac",
+    "description": "Obrni samo značajne bitove",
+    "body": [
+      "unsigned int ${1:obrnuto} = 0;",
+      "unsigned int ${2:temp} = ${3:broj};",
+      "while (${2:temp} != 0) {",
+      "    ${1:obrnuto} = (${1:obrnuto} << 1) | (${2:temp} & 1u);",
+      "    ${2:temp} >>= 1;",
+      "}",
+      "$0"
+    ]
+  },
+  "maks. dijagonalni zbroj": {
+    "prefix": "udijamaks",
+    "description": "Nađi najveći gornji dijagonalni zbroj i uzmi zadnji kod izjednačenja",
+    "body": [
+      "int ${1:najveci} = ${2:a}[0][0];",
+      "int ${3:redak} = 0, ${4:stupac} = 0;",
+      "for (int i = 0; i < ${5:n}; i++) {",
+      "    for (int j = 0; j < ${5:n}; j++) {",
+      "        int zbroj = ${2:a}[i][j];",
+      "        if (i > 0 && j > 0) zbroj += ${2:a}[i - 1][j - 1];",
+      "        if (i > 0 && j + 1 < ${5:n}) zbroj += ${2:a}[i - 1][j + 1];",
+      "        if (zbroj >= ${1:najveci}) {",
+      "            ${1:najveci} = zbroj;",
+      "            ${3:redak} = i;",
+      "            ${4:stupac} = j;",
+      "        }",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "zamijeni strukture": {
+    "prefix": "ustructswap",
+    "description": "Zamijeni dvije cijele strukture u polju",
+    "body": [
+      "struct ${1:Trkac} ${2:temp} = ${3:polje}[${4:j}];",
+      "${3:polje}[${4:j}] = ${3:polje}[${4:j} + 1];",
+      "${3:polje}[${4:j} + 1] = ${2:temp};",
+      "$0"
+    ]
+  },
+  "oznaka bez godine": {
+    "prefix": "udionagodina",
+    "description": "Usporedi oznake dijelova bez godine",
+    "body": [
+      "if (${1:serijskiBroj} / 10000 == ${2:trazeniBroj} / 10000) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "provjera susjeda": {
+    "prefix": "ususjed",
+    "description": "Provjeri je li susjed unutar matrice",
+    "body": [
+      "if (${1:i} + (${3:di}) >= 0 && ${1:i} + (${3:di}) < ${5:m} &&",
+      "    ${2:j} + (${4:dj}) >= 0 && ${2:j} + (${4:dj}) < ${6:n}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "glavna dijagonala": {
+    "prefix": "uglavna",
+    "description": "Prođi glavnom dijagonalom matrice",
+    "body": [
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "    ${2:a}[i][i]$0",
+      "}"
+    ]
+  },
+  "sporedna dijagonala": {
+    "prefix": "usporedna",
+    "description": "Prođi sporednom dijagonalom matrice",
+    "body": [
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "    ${2:a}[i][${1:n} - 1 - i]$0",
+      "}"
+    ]
+  },
+  "zbroj glavne dijagonale": {
+    "prefix": "usumaglavna",
+    "description": "Zbroji elemente glavne dijagonale",
+    "body": [
+      "int ${1:zbroj} = 0;",
+      "for (int i = 0; i < ${2:n}; i++) {",
+      "    ${1:zbroj} += ${3:a}[i][i];",
+      "}",
+      "$0"
+    ]
+  },
+  "zbroj sporedne dijagonale": {
+    "prefix": "usumasporedna",
+    "description": "Zbroji elemente sporedne dijagonale",
+    "body": [
+      "int ${1:zbroj} = 0;",
+      "for (int i = 0; i < ${2:n}; i++) {",
+      "    ${1:zbroj} += ${3:a}[i][${2:n} - 1 - i];",
+      "}",
+      "$0"
+    ]
+  },
+  "uvjeti dijagonala": {
+    "prefix": "udijauvjeti",
+    "description": "Provjeri položaj prema objema dijagonalama",
+    "body": [
+      "if (${1:i} == ${2:j}) {",
+      "    // Glavna dijagonala",
+      "    $0",
+      "}",
+      "if (${1:i} + ${2:j} == ${3:n} - 1) {",
+      "    // Sporedna dijagonala",
+      "}"
+    ]
+  },
+  "lokalni maksimum": {
+    "prefix": "ulokmaks",
+    "description": "Provjeri je li element veći od susjeda",
+    "body": [
+      "if ((${1:i} == 0 || ${3:a}[${1:i}][${2:j}] > ${3:a}[${1:i} - 1][${2:j}]) &&",
+      "    (${1:i} == ${4:m} - 1 || ${3:a}[${1:i}][${2:j}] > ${3:a}[${1:i} + 1][${2:j}]) &&",
+      "    (${2:j} == 0 || ${3:a}[${1:i}][${2:j}] > ${3:a}[${1:i}][${2:j} - 1]) &&",
+      "    (${2:j} == ${5:n} - 1 || ${3:a}[${1:i}][${2:j}] > ${3:a}[${1:i}][${2:j} + 1])) {",
+      "    printf(\"%4d*\", ${3:a}[${1:i}][${2:j}]);",
+      "} else {",
+      "    printf(\"%5d\", ${3:a}[${1:i}][${2:j}]);",
+      "}",
+      "$0"
+    ]
+  },
+  "jednaki: zadnji": {
+    "prefix": "ublokzadnji",
+    "description": "Nađi zadnji najdulji blok jednakih",
+    "body": [
+      "int najboljiPocetak = 0, najboljaDuljina = 0;",
+      "for (int i = 0; i < ${1:n}; ) {",
+      "    int j = i + 1;",
+      "    while (j < ${1:n} && ${2:polje}[j] == ${2:polje}[i]) j++;",
+      "    if (j - i >= najboljaDuljina) {",
+      "        najboljaDuljina = j - i;",
+      "        najboljiPocetak = i;",
+      "    }",
+      "    i = j;",
+      "}",
+      "$0"
+    ]
+  },
+  "rastući: prvi": {
+    "prefix": "urastprvi",
+    "description": "Nađi prvi najdulji strogo rastući blok",
+    "body": [
+      "// Pretpostavka: n > 0",
+      "int najboljiPocetak = 0, najboljaDuljina = 1;",
+      "int pocetak = 0, duljina = 1;",
+      "for (int i = 1; i < ${1:n}; i++) {",
+      "    if (${2:polje}[i] > ${2:polje}[i - 1]) duljina++;",
+      "    else { pocetak = i; duljina = 1; }",
+      "    if (duljina > najboljaDuljina) {",
+      "        najboljaDuljina = duljina;",
+      "        najboljiPocetak = pocetak;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "rastući: zadnji": {
+    "prefix": "urastzadnji",
+    "description": "Nađi zadnji najdulji strogo rastući blok",
+    "body": [
+      "// Pretpostavka: n > 0",
+      "int najboljiPocetak = 0, najboljaDuljina = 1;",
+      "int pocetak = 0, duljina = 1;",
+      "for (int i = 1; i < ${1:n}; i++) {",
+      "    if (${2:polje}[i] > ${2:polje}[i - 1]) duljina++;",
+      "    else { pocetak = i; duljina = 1; }",
+      "    if (duljina >= najboljaDuljina) {",
+      "        najboljaDuljina = duljina;",
+      "        najboljiPocetak = pocetak;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "najveći zbroj: prvi": {
+    "prefix": "uzbrojprvi",
+    "description": "Nađi podniz s najvećim zbrojem i uzmi prvi kod izjednačenja",
+    "body": [
+      "// Pretpostavka: n > 0; neprazan uzastopni podniz",
+      "long long najboljiZbroj = ${2:polje}[0], zbroj = ${2:polje}[0];",
+      "int najboljiPocetak = 0, najboljiKraj = 0, pocetak = 0;",
+      "for (int i = 1; i < ${1:n}; i++) {",
+      "    if (zbroj < 0) { zbroj = ${2:polje}[i]; pocetak = i; }",
+      "    else zbroj += ${2:polje}[i];",
+      "    if (zbroj > najboljiZbroj) {",
+      "        najboljiZbroj = zbroj;",
+      "        najboljiPocetak = pocetak;",
+      "        najboljiKraj = i;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "najveći zbroj: zadnji": {
+    "prefix": "uzbrojzadnji",
+    "description": "Nađi podniz s najvećim zbrojem i uzmi zadnji kod izjednačenja",
+    "body": [
+      "// Pretpostavka: n > 0; neprazan uzastopni podniz",
+      "long long najboljiZbroj = ${2:polje}[0], zbroj = ${2:polje}[0];",
+      "int najboljiPocetak = 0, najboljiKraj = 0, pocetak = 0;",
+      "for (int i = 1; i < ${1:n}; i++) {",
+      "    if (zbroj <= 0) { zbroj = ${2:polje}[i]; pocetak = i; }",
+      "    else zbroj += ${2:polje}[i];",
+      "    if (zbroj >= najboljiZbroj) {",
+      "        najboljiZbroj = zbroj;",
+      "        najboljiPocetak = pocetak;",
+      "        najboljiKraj = i;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "jednaki: cijeli program": {
+    "prefix": "ujednakicijeli",
+    "description": "Učitaj polje i nađi prvi najdulji blok jednakih",
+    "body": [
+      "#include <stdio.h>",
+      "",
+      "int main(void)",
+      "{",
+      "    int n;",
+      "    printf(\"Unesite duljinu polja > \\n\");",
+      "    do {",
+      "        scanf(\"%d\", &n);",
+      "    } while (n < 1 || n > 100);",
+      "",
+      "    int polje[100];",
+      "    printf(\"Unesite clanove polja > \\n\");",
+      "    for (int i = 0; i < n; i++) {",
+      "        scanf(\"%d\", &polje[i]);",
+      "    }",
+      "",
+      "    int najboljiPocetak = 0, najboljaDuljina = 0;",
+      "    for (int i = 0; i < n; ) {",
+      "        int j = i + 1;",
+      "        while (j < n && polje[j] == polje[i]) j++;",
+      "        if (j - i > najboljaDuljina) {",
+      "            najboljaDuljina = j - i;",
+      "            najboljiPocetak = i;",
+      "        }",
+      "        i = j;",
+      "    }",
+      "",
+      "    printf(\"Pocetni indeks: %d\\n\", najboljiPocetak);",
+      "    printf(\"Duljina niza: %d\\n\", najboljaDuljina);",
+      "    return 0;",
+      "}",
+      "$0"
+    ]
+  },
+  "bitovni uzorak": {
+    "prefix": "ubituzorak",
+    "description": "Nađi bitovni uzorak i broji preklapanja",
+    "body": [
+      "int ${1:brojPojava} = 0;",
+      "if (${2:duljina} >= 1 && ${2:duljina} <= 32) {",
+      "    unsigned int maska = ${2:duljina} == 32 ? ~0u : (1u << ${2:duljina}) - 1u;",
+      "    for (int pomak = 0; pomak <= 32 - ${2:duljina}; pomak++) {",
+      "        if (((${3:broj} >> pomak) & maska) == ${4:uzorak}) {",
+      "            ${1:brojPojava}++;",
+      "        }",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "bitovni prefiks": {
+    "prefix": "ubitprefiks",
+    "description": "Prebroji jednake bitove od početka",
+    "body": [
+      "int ${1:duljinaPrefiksa} = 0;",
+      "for (int i = 31; i >= 0; i--) {",
+      "    if (((${2:a} >> i) & 1u) != ((${3:b} >> i) & 1u)) break;",
+      "    ${1:duljinaPrefiksa}++;",
+      "}",
+      "$0"
+    ]
+  },
+  "rotacija ulijevo": {
+    "prefix": "urotlijevo",
+    "description": "Ispiši matricu rotiranu 90° ulijevo",
+    "body": [
+      "for (int j = ${1:n} - 1; j >= 0; j--) {",
+      "    for (int i = 0; i < ${1:n}; i++) {",
+      "        printf(\"%4d\", ${2:a}[i][j]);",
+      "    }",
+      "    printf(\"\\n\");",
+      "}",
+      "$0"
+    ]
+  },
+  "usporedi tekst": {
+    "prefix": "utekstusp",
+    "description": "Usporedi tekst bez razmaka i veličine slova",
+    "body": [
+      "int i = 0, j = 0, ${1:odnos} = 0;",
+      "while (1) {",
+      "    while (${2:s1}[i] == ' ') i++;",
+      "    while (${3:s2}[j] == ' ') j++;",
+      "    int prvi = tolower((unsigned char)${2:s1}[i]);",
+      "    int drugi = tolower((unsigned char)${3:s2}[j]);",
+      "    if (prvi != drugi) {",
+      "        ${1:odnos} = prvi < drugi ? -1 : 1;",
+      "        break;",
+      "    }",
+      "    if (prvi == '\\0') break;",
+      "    i++;",
+      "    j++;",
+      "}",
+      "$0"
+    ]
+  },
+  "kompresija znakova": {
+    "prefix": "ukompresija",
+    "description": "Sažmi ponavljanja znakova (aaabb → a3b2)",
+    "body": [
+      "#include <stdio.h>",
+      "#include <string.h>",
+      "",
+      "int main(void)",
+      "{",
+      "    char tekst[101];",
+      "    char sazetak[101];",
+      "    int j = 0;",
+      "",
+      "    if (fgets(tekst, sizeof tekst, stdin) == NULL)",
+      "    {",
+      "        return 0;",
+      "    }",
+      "    tekst[strcspn(tekst, \"\\n\")] = '\\0';",
+      "",
+      "    for (int i = 0; tekst[i] != '\\0'; )",
+      "    {",
+      "        char clan = tekst[i];",
+      "        int brojac = 0;",
+      "",
+      "        while (tekst[i] == clan)",
+      "        {",
+      "            brojac++;",
+      "            i++;",
+      "        }",
+      "",
+      "        sazetak[j++] = clan;",
+      "        if (brojac > 1)",
+      "        {",
+      "            sazetak[j++] = '0' + brojac;",
+      "        }",
+      "    }",
+      "",
+      "    sazetak[j] = '\\0';",
+      "    printf(\"%s\", sazetak);",
+      "",
+      "    return 0;",
+      "}",
+      "$0"
+    ]
+  },
+  "sortiraj strukture": {
+    "prefix": "ustructsort",
+    "description": "Stabilno sortiraj strukture uzlazno po članu",
+    "body": [
+      "for (int i = 1; i < ${1:n}; i++) {",
+      "    ${2:struct Zapis} trenutni = ${3:polje}[i];",
+      "    int j = i;",
+      "    while (j > 0 && ${3:polje}[j - 1].${4:kljuc} > trenutni.${4:kljuc}) {",
+      "        ${3:polje}[j] = ${3:polje}[j - 1];",
+      "        j--;",
+      "    }",
+      "    ${3:polje}[j] = trenutni;",
+      "}",
+      "$0"
+    ]
+  },
+  "sortiranje polja": {
+    "prefix": "usortpolje",
+    "description": "Sortiraj cijele brojeve uzlazno",
+    "body": [
+      "for (int i = 0; i < ${1:n} - 1; i++) {",
+      "    for (int j = 0; j < ${1:n} - 1 - i; j++) {",
+      "        if (${2:polje}[j] > ${2:polje}[j + 1]) {",
+      "            int temp = ${2:polje}[j];",
+      "            ${2:polje}[j] = ${2:polje}[j + 1];",
+      "            ${2:polje}[j + 1] = temp;",
+      "        }",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "obrtanje polja": {
+    "prefix": "uobrtniz",
+    "description": "Obrni redoslijed elemenata polja",
+    "body": [
+      "for (int i = 0, j = ${1:n} - 1; i < j; i++, j--) {",
+      "    int temp = ${2:polje}[i];",
+      "    ${2:polje}[i] = ${2:polje}[j];",
+      "    ${2:polje}[j] = temp;",
+      "}",
+      "$0"
+    ]
+  },
+  "broj bitova 1": {
+    "prefix": "ubitbroj1",
+    "description": "Prebroji bitove koji su 1",
+    "body": [
+      "unsigned int temp = ${1:broj};",
+      "int brojJedinica = 0;",
+      "while (temp != 0) {",
+      "    brojJedinica += temp & 1u;",
+      "    temp >>= 1;",
+      "}",
+      "$0"
+    ]
+  },
+  "palindrom bitova": {
+    "prefix": "ubitpalindrom",
+    "description": "Provjeri jesu li značajni bitovi palindrom",
+    "body": [
+      "unsigned int temp = ${1:broj};",
+      "unsigned int obrnuto = 0;",
+      "while (temp != 0) {",
+      "    obrnuto = (obrnuto << 1) | (temp & 1u);",
+      "    temp >>= 1;",
+      "}",
+      "int palindrom = (obrnuto == ${1:broj});",
+      "$0"
+    ]
+  },
+  "palindrom teksta": {
+    "prefix": "upalintext",
+    "description": "Provjeri je li cijeli tekst palindrom",
+    "body": [
+      "size_t lijevo = 0, desno = strlen(${1:tekst});",
+      "int palindrom = 1;",
+      "while (lijevo < desno) {",
+      "    desno--;",
+      "    if (lijevo >= desno) break;",
+      "    if (${1:tekst}[lijevo] != ${1:tekst}[desno]) {",
+      "        palindrom = 0;",
+      "        break;",
+      "    }",
+      "    lijevo++;",
+      "}",
+      "$0"
+    ]
+  },
+  "brojanje rijeci": {
+    "prefix": "ubrojrijeci",
+    "description": "Prebroji riječi odvojene bjelinama",
+    "body": [
+      "int brojRijeci = 0, uRijeci = 0;",
+      "for (int i = 0; ${1:tekst}[i] != '\\0'; i++) {",
+      "    if (isspace((unsigned char)${1:tekst}[i])) uRijeci = 0;",
+      "    else if (!uRijeci) {",
+      "        brojRijeci++;",
+      "        uRijeci = 1;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "broj pojavljivanja": {
+    "prefix": "upojave",
+    "description": "Prebroji pojave zadane vrijednosti",
+    "body": [
+      "int brojPojava = 0;",
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "    if (${2:polje}[i] == ${3:trazeni}) brojPojava++;",
+      "}",
+      "$0"
+    ]
+  },
+  "prvo pojavljivanje": {
+    "prefix": "uprviput",
+    "description": "Nađi prvi indeks zadane vrijednosti",
+    "body": [
+      "int indeks = -1;",
+      "for (int i = 0; i < ${1:n}; i++) {",
+      "    if (${2:polje}[i] == ${3:trazeni}) {",
+      "        indeks = i;",
+      "        break;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "unos osoba": {
+    "prefix": "uosobeunos",
+    "description": "Učitaj osobe do točke ili 20 zapisa",
+    "body": [
+      "for (int i = ${1:brojac}; i < 20; i++) {",
+      "    printf(\"Osoba %d:\\nIme i prezime: \", i + 1);",
+      "    scanf(\"%20s\", ${2:osobe}[i].ime);",
+      "    if (${2:osobe}[i].ime[0] == '.') break;",
+      "    printf(\"Rodenje: \");",
+      "    scanf(\"%hd\", &${2:osobe}[i].${3:godinarodenja});",
+      "    printf(\"Smrt: \");",
+      "    scanf(\"%hd\", &${2:osobe}[i].${4:godinasmrti});",
+      "    ${1:brojac}++;",
+      "}",
+      "$0"
+    ]
+  },
+  "pretraga osoba": {
+    "prefix": "uosobegod",
+    "description": "Ispiši osobe žive u zadanoj godini",
+    "body": [
+      "int pronadeno = 0;",
+      "for (int i = 0; i < ${1:brojac}; i++) {",
+      "    if (${2:osobe}[i].${3:godinarodenja} <= ${4:godina} &&",
+      "        ${4:godina} <= ${2:osobe}[i].${5:godinasmrti}) {",
+      "        printf(\"%s (%hd - %hd)\\n\", ${2:osobe}[i].ime,",
+      "               ${2:osobe}[i].${3:godinarodenja}, ${2:osobe}[i].${5:godinasmrti});",
+      "        pronadeno = 1;",
+      "    }",
+      "}",
+      "if (!pronadeno) printf(\"Nema suvremenika.\\n\");",
+      "$0"
+    ]
+  },
+  "transponiranje matrice": {
+    "prefix": "utransmat",
+    "description": "Transponiraj pravokutnu matricu",
+    "body": [
+      "for (int i = 0; i < ${1:m}; i++) {",
+      "    for (int j = 0; j < ${2:n}; j++) {",
+      "        ${4:b}[j][i] = ${3:a}[i][j];",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "vanjski rub matrice": {
+    "prefix": "upomakrub",
+    "description": "Pomakni vanjski rub matrice ulijevo",
+    "body": [
+      "// Pretpostavka: n >= 2, kvadratna matrica.",
+      "int zadaniKut = ${1:a}[0][0];",
+      "for (int j = 0; j < ${2:n} - 1; j++)",
+      "    ${1:a}[0][j] = ${1:a}[0][j + 1];",
+      "for (int i = 0; i < ${2:n} - 1; i++)",
+      "    ${1:a}[i][${2:n} - 1] = ${1:a}[i + 1][${2:n} - 1];",
+      "for (int j = ${2:n} - 1; j > 0; j--)",
+      "    ${1:a}[${2:n} - 1][j] = ${1:a}[${2:n} - 1][j - 1];",
+      "for (int i = ${2:n} - 1; i > 1; i--)",
+      "    ${1:a}[i][0] = ${1:a}[i - 1][0];",
+      "${1:a}[1][0] = zadaniKut;",
+      "$0"
+    ]
+  },
+  "aritmeticki niz": {
+    "prefix": "uaritmeticki",
+    "description": "Provjeri stalnu razliku niza",
+    "body": [
+      "// Pretpostavka: n >= 2.",
+      "long long d = (long long)${1:a}[1] - ${1:a}[0];",
+      "int aritmeticki = 1;",
+      "for (int i = 2; i < ${2:n}; i++) {",
+      "    if ((long long)${1:a}[i] - ${1:a}[i - 1] != d) {",
+      "        aritmeticki = 0;",
+      "        break;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+  "trazi dio figure": {
+    "prefix": "ulegotrazi",
+    "description": "Nađi figure po oznaci dijela",
+    "body": [
+      "int oznaka = ${1:serijski} / 10000;",
+      "int pronadeno = 0;",
+      "for (int i = 0; i < ${2:brojFigura}; i++) {",
+      "    for (int j = 0; j < 5; j++) {",
+      "        if (${3:figure}[i].${4:dijelovi}[j] / 10000 == oznaka) {",
+      "            printf(\"%s\\n\", ${3:figure}[i].${5:naziv});",
+      "            pronadeno = 1;",
+      "            break;",
+      "        }",
+      "    }",
+      "}",
+      "if (!pronadeno)",
+      "    printf(\"Nema figura!\\n\");",
+      "$0"
+    ]
+  },
+  "troznamenkasti prim brojevi sa znamenkom": {
+    "prefix": "uprostiznamenka",
+    "body": [
+      "#include <stdio.h>",
+      "",
+      "int main(void) {",
+      "    int trazena, zbroj = 0;",
+      "    scanf(\"%d\", &trazena);",
+      "    for (int broj = 999; broj >= 100; broj--) {",
+      "        int kopija = broj, sadrzi = 0;",
+      "        while (kopija > 0) {",
+      "            if (kopija % 10 == trazena) sadrzi = 1;",
+      "            kopija /= 10;",
+      "        }",
+      "        if (!sadrzi) continue;",
+      "        int prost = 1;",
+      "        for (int d = 2; d <= broj / d && prost; d++) {",
+      "            if (broj % d == 0) prost = 0;",
+      "        }",
+      "        if (prost) {",
+      "            printf(\"%d\\n\", broj);",
+      "            zbroj += broj;",
+      "        }",
+      "    }",
+      "    printf(\"Zbroj: %d\\n\", zbroj);",
+      "    return 0;",
+      "}",
+      "$0"
+    ],
+    "description": "Ispiši troznamenkaste prim brojeve sa znamenkom"
+  },
+  "broj poteza skakaca": {
+    "prefix": "uskakac",
+    "body": [
+      "#include <stdio.h>",
+      "",
+      "int main(void) {",
+      "    int n;",
+      "    printf(\"Unesite dimenziju ploce > \");",
+      "    scanf(\"%d\", &n);",
+      "    int ploca[n][n];",
+      "    const int pomak[8][2] = {",
+      "        {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2},",
+      "        {1, -2}, {1, 2}, {2, -1}, {2, 1}",
+      "    };",
+      "    for (int i = 0; i < n; i++) {",
+      "        for (int j = 0; j < n; j++) {",
+      "            ploca[i][j] = 0;",
+      "            for (int k = 0; k < 8; k++) {",
+      "                int red = i + pomak[k][0];",
+      "                int stupac = j + pomak[k][1];",
+      "                if (red >= 0 && red < n && stupac >= 0 && stupac < n)",
+      "                    ploca[i][j]++;",
+      "            }",
+      "        }",
+      "    }",
+      "    for (int i = 0; i < n; i++) {",
+      "        for (int j = 0; j < n; j++)",
+      "            printf(\"%s%d\", j ? \" \" : \"\", ploca[i][j]);",
+      "        putchar('\\n');",
+      "    }",
+      "    return 0;",
+      "}",
+      "$0"
+    ],
+    "description": "Popuni ploču brojem poteza skakača"
+  },
+  "najveci zajednicki djelitelj": {
+    "prefix": "unzd",
+    "body": [
+      "// Definiraj izvan maina; radi i kada je jedan argument 0.",
+      "unsigned int ${1:nzd}(unsigned int a, unsigned int b) {",
+      "    while (b != 0) {",
+      "        unsigned int ostatak = a % b;",
+      "        a = b;",
+      "        b = ostatak;",
+      "    }",
+      "    return a;",
+      "}",
+      "$0"
+    ],
+    "description": "Izračunaj NZD Euklidovim algoritmom"
+  },
+  "medijan tri realna broja": {
+    "prefix": "umedijan3",
+    "body": [
+      "// Definiraj izvan maina; argumenti su konacni realni brojevi.",
+      "double ${1:medijan}(double a, double b, double c) {",
+      "    if ((a <= b && b <= c) || (c <= b && b <= a)) return b;",
+      "    if ((b <= a && a <= c) || (c <= a && a <= b)) return a;",
+      "    return c;",
+      "}",
+      "$0"
+    ],
+    "description": "Vrati srednji od triju realnih brojeva"
+  },
+  "ukloni znak iz teksta": {
+    "prefix": "utekstizbaci",
+    "body": [
+      "// tekst mora biti promjenjivo char polje zavrseno znakom '\\0'.",
+      "int ${1:upis} = 0;",
+      "for (int ${2:i} = 0; ${3:tekst}[${2:i}] != '\\0'; ${2:i}++) {",
+      "    if (${3:tekst}[${2:i}] != ${4:znak})",
+      "        ${3:tekst}[${1:upis}++] = ${3:tekst}[${2:i}];",
+      "}",
+      "${3:tekst}[${1:upis}] = '\\0';",
+      "$0"
+    ],
+    "description": "Ukloni sve pojave znaka iz istog teksta"
+  },
+  "obrni tekst na mjestu": {
+    "prefix": "utekstobrni",
+    "body": [
+      "// tekst mora biti promjenjivo char polje zavrseno znakom '\\0'.",
+      "int ${1:duljina} = 0;",
+      "while (${2:tekst}[${1:duljina}] != '\\0') ${1:duljina}++;",
+      "for (int ${3:i} = 0; ${3:i} < ${1:duljina} / 2; ${3:i}++) {",
+      "    char ${4:temp} = ${2:tekst}[${3:i}];",
+      "    ${2:tekst}[${3:i}] = ${2:tekst}[${1:duljina} - 1 - ${3:i}];",
+      "    ${2:tekst}[${1:duljina} - 1 - ${3:i}] = ${4:temp};",
+      "}",
+      "$0"
+    ],
+    "description": "Obrni tekst zamjenom znakova s krajeva"
+  },
+  "ciklicki pomak udesno 32 bita": {
+    "prefix": "ubitrot32",
+    "body": [
+      "#include <stdint.h>",
+      "",
+      "// Definiraj izvan maina; 0, 32, 64... mjesta ostavlja broj istim.",
+      "uint32_t ${1:rotirajUdesno}(uint32_t broj, unsigned int pomak) {",
+      "    pomak %= 32;",
+      "    if (pomak == 0) return broj;",
+      "    return (uint32_t)((broj >> pomak) | (broj << (32 - pomak)));",
+      "}",
+      "$0"
+    ],
+    "description": "Ciklički pomakni 32 bita udesno"
+  },
+  "ucestalost u drugom tekstu": {
+    "prefix": "utekstucestalost",
+    "body": [
+      "// izlaz treba imati barem onoliko mjesta koliko nizA (ukljucujuci '\\0').",
+      "// Iz nizova prethodno ukloni zavrsni '\\n'; ponavljanja u nizA se cuvaju.",
+      "int ${1:upis} = 0;",
+      "for (int ${2:i} = 0; ${3:nizA}[${2:i}] != '\\0'; ${2:i}++) {",
+      "    int ${4:broj} = 0;",
+      "    for (int ${5:j} = 0; ${6:nizB}[${5:j}] != '\\0'; ${5:j}++) {",
+      "        if (${3:nizA}[${2:i}] == ${6:nizB}[${5:j}]) ${4:broj}++;",
+      "    }",
+      "    if (${4:broj} >= ${7:3}) ${8:izlaz}[${1:upis}++] = ${3:nizA}[${2:i}];",
+      "}",
+      "${8:izlaz}[${1:upis}] = '\\0';",
+      "$0"
+    ],
+    "description": "Prepiši znakove česte u drugom tekstu"
+  }
+}

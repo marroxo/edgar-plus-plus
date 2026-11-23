@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Edgar++",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "description": "Lokalno povezuje VS Code s Edgarom i skriva osobne podatke.",
   "permissions": [
     "storage",
@@ -22,7 +22,9 @@
       }
     }
   },
+  "icons": {"48": "edgar-icon.svg", "96": "edgar-icon.svg"},
   "browser_action": {
+    "default_icon": {"16": "edgar-icon.svg", "32": "edgar-icon.svg"},
     "default_title": "Edgar++",
     "default_popup": "popup.html"
   },
@@ -37,7 +39,8 @@
         "https://edgar.fer.hr/*"
       ],
       "js": [
-        "content.js"
+        "content.js",
+        "bootstrap.js"
       ],
       "run_at": "document_idle"
     }

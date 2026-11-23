@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UPRO prečaci · Edgar++</title>
+<style>
+:root { color-scheme: dark; background:#1a1216; color:#fff4f7; font:16px system-ui,sans-serif }
+body { margin:0 }
+main { max-width:54rem; margin:auto; padding:clamp(1rem,4vw,2rem) }
+h1 { margin:0 0 1rem }
+input, button { font:inherit; color:inherit; background:#32222b; border:1px solid #a77589; border-radius:.4rem; padding:.65rem }
+input { display:block; width:100%; box-sizing:border-box; margin:.4rem 0 1rem }
+button, summary { cursor:pointer }
+:focus-visible { outline:2px solid #ffc1d6; outline-offset:2px }
+details { background:#251a20; border:1px solid #654454; border-radius:.5rem; margin:.55rem 0; padding:.75rem }
+summary { overflow-wrap:anywhere }
+pre { overflow:auto; background:#1a1216; padding:.75rem; border-radius:.35rem }
+summary code { color:#ffc1d6 }
+</style>
+</head>
+<body>
+<main>
+<h1>UPRO prečaci</h1>
+<label for="search">Pretraži po nazivu, opisu ili prečacu</label>
+<input id="search" type="search" placeholder="Npr. dijagonala, bitovi, string">
+<p id="count" role="status"></p>
+<div id="results"></div>
+<p id="copy-status" role="status"></p>
+</main>
+<script src="upro-reference.js"></script>
+</body>
+</html>

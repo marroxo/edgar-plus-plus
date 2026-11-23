@@ -1,8 +1,10 @@
 let session = null, busy = false;
+let syncGeneration = 0;
 const states = new Map();
 const endpoint = 'http://127.0.0.1:43187';
 const normalizedText = text => text.replace(/\r\n/g, '\n');
 async function connectAutomatic(tabId, url) {
+  const generation = syncGeneration;
   if (!/^https:\/\/edgar\.fer\.hr\//.test(url || '')) throw Error('Otvori Edgarov zadatak.');
   // Stop the previous binding before rebinding the page, including on failure.
   // Otherwise an old file could be sent into a newly selected question.
@@ -15,11 +17,13 @@ async function connectAutomatic(tabId, url) {
   catch { throw Error('VS Code nije dostupan. Otvori mapu u VS Codeu.'); }
   let state; try { state=await response.json(); } catch { throw Error('VS Code je vratio neispravan odgovor.'); }
   if (!response.ok) throw Error(state.error || 'Povezivanje nije uspjelo.');
+  if (generation !== syncGeneration) throw Error('Povezivanje je isključeno.');
   if (state.updatePage ?? normalizedText(state.text) !== normalizedText(initial.text)) {
     const applied=await browser.tabs.sendMessage(tabId,{type:'update',baseText:initial.text,text:state.text,run:false});
     if(!applied?.ok)throw Error(applied?.error || 'Kod nije prenesen.');
     await acknowledge(state.token,state.version);
   }
+  if (generation !== syncGeneration) throw Error('Povezivanje je isključeno.');
   session={tabId,url,token:state.token,runId:state.runId,fileName:state.fileName,baseText:normalizedText(state.text),ackVersion:state.version};
   setStatus(tabId,{connected:true,message:'Uživo: '+state.fileName});
   return states.get(tabId);
@@ -64,10 +68,22 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     const tabId=sender.tab?.id, url=sender.tab?.url;
     if (busy) return {ok:false,message:'Prijenos je u tijeku. Pokušaj ponovno.'};
     busy=true;
-    try { const result=await connectAutomatic(tabId,url);return {ok:true,message:result.message}; }
+    try {
+      const settings = await browser.storage.local.get(['syncEnabled','extensionEnabled']);
+      if (settings.extensionEnabled === false || settings.syncEnabled !== true) throw Error('Najprije omogući povezivanje u izborniku Edgar++.');
+      const result=await connectAutomatic(tabId,url);
+      return {ok:true,message:result.message};
+    }
     catch(e) { const message='Nije spojeno: '+e.message;if(tabId!=null)setStatus(tabId,{connected:false,message});return {ok:false,message}; }
     finally { busy=false; }
   }
+});
+browser.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'local' || !(changes.extensionEnabled?.newValue === false || changes.syncEnabled?.newValue === false)) return;
+  syncGeneration++;
+  if (!session) return;
+  setStatus(session.tabId, {connected:false, message:'Povezivanje je isključeno.'});
+  session = null;
 });
 setInterval(async () => {
   if (!session || busy) return;

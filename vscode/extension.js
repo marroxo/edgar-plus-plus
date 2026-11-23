@@ -26,8 +26,9 @@ function fileNameFor(title, question, key = title) {
   const first = Number(year[1]) % 100, second = Number(year[2]) % 100;
   if ((first + 1) % 100 !== second) return genericName();
   const term = /\b(drugi|2\.?)[\s-]+termin\b/.test(normalized) ? 'B' : /\b(prvi|1\.?)[\s-]+termin\b/.test(normalized) ? 'A' : null;
-  if (!term) return genericName();
-  return `${prefix}${String(first).padStart(2, '0')}${String(second).padStart(2, '0')}${term}${Number(question)}.c`;
+  const isPracticeMidterm = prefix === 'MI' && /\bprobni\s+(?:meduispit|medjuispit|mi)\b/.test(normalized);
+  if (!term && !isPracticeMidterm) return genericName();
+  return `${isPracticeMidterm ? 'PMI' : prefix}${String(first).padStart(2, '0')}${String(second).padStart(2, '0')}${term || ''}${Number(question)}.c`;
 }
 function connectedDocument(session) {
   return session && vscode.workspace.textDocuments.find(d => d.uri.toString() === session.documentUri && !d.isClosed);
@@ -130,7 +131,9 @@ function replaceDocument(editor, doc, text) {
 async function handle(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const origin = req.headers.origin;
-  if (!originPattern.test(origin || '') || req.headers.host !== '127.0.0.1:43187') return reply(res,403,{error:'Nedopušten izvor zahtjeva.'});
+  const chromeId = vscode.workspace.getConfiguration?.('edgar')?.get('chromeExtensionId', '');
+  const trustedChrome = /^[a-p]{32}$/.test(chromeId || '') && origin === `chrome-extension://${chromeId}`;
+  if ((!originPattern.test(origin || '') && !trustedChrome) || req.headers.host !== '127.0.0.1:43187') return reply(res,403,{error:'Nedopušten izvor zahtjeva.'});
   res.setHeader('Access-Control-Allow-Origin', origin); res.setHeader('Vary', 'Origin');
   if (req.method === 'OPTIONS' && ['/state', '/connect', '/edit', '/format', '/ack'].includes(req.url)) {
     const method = req.url === '/state' ? 'GET' : 'POST';
@@ -206,7 +209,6 @@ function start() {
 }
 function activate(context) {
   workspaceState=context.workspaceState;
-  context.subscriptions.push(vscode.commands.registerCommand('edgar.localTests', () => require('./local-panel').openLocalTests(context)));
   context.subscriptions.push(vscode.commands.registerCommand('edgar.start',start));
   context.subscriptions.push(vscode.commands.registerCommand('edgar.stop',() => {stop(); vscode.window.showInformationMessage('Edgar: povezivanje je isključeno.');}));
   context.subscriptions.push(vscode.commands.registerCommand('edgar.run',() => {

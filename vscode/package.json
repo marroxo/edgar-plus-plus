@@ -1,8 +1,8 @@
 {
   "name": "edgar-spojenie",
   "displayName": "Edgar++",
-  "description": "Sinkronizira lokalni C kod s Edgarovim uređivačem i pokreće lokalne provjere primjera.",
-  "version": "0.3.10",
+  "description": "Sinkronizira lokalni C kod s Edgarovim uređivačem.",
+  "version": "0.3.13",
   "publisher": "marroxo",
   "repository": {
     "type": "git",
@@ -11,8 +11,12 @@
   "bugs": {
     "url": "https://github.com/marroxo/edgar-plus-plus/issues"
   },
-  "categories": ["Other"],
-  "files": ["extension.js", "local-panel.js", "local-tests.js"],
+  "categories": [
+    "Other"
+  ],
+  "files": [
+    "extension.js"
+  ],
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -21,10 +25,21 @@
     "onStartupFinished",
     "onCommand:edgar.start",
     "onCommand:edgar.run",
-    "onCommand:edgar.stop",
-    "onCommand:edgar.localTests"
+    "onCommand:edgar.stop"
   ],
   "contributes": {
+    "configuration": {
+      "title": "Edgar++",
+      "properties": {
+        "edgar.chromeExtensionId": {
+          "type": "string",
+          "default": "",
+          "scope": "application",
+          "pattern": "^([a-p]{32})?$",
+          "description": "ID pouzdanog primjerka Edgar++ iz chrome://extensions."
+        }
+      }
+    },
     "commands": [
       {
         "command": "edgar.start",
@@ -37,10 +52,6 @@
       {
         "command": "edgar.stop",
         "title": "Edgar: Isključi povezivanje"
-      },
-      {
-        "command": "edgar.localTests",
-        "title": "Edgar: Lokalno provjeri primjere"
       }
     ]
   }

@@ -36,6 +36,7 @@ const {Readable} = require('node:stream');
     assert.equal(fileNameFor(title,'2'),'MI2425B2.c');
     assert.equal(fileNameFor('Vježba: ZAVRŠNI ISPIT 2024/2025 - PRVI TERMIN (571300)','1'),'ZI2425A1.c');
     assert.equal(fileNameFor('MI2425B','3'),'MI2425B3.c');
+    assert.equal(fileNameFor('Probni međuispit 2021/22 (574035)','1','question-key'),'PMI21221.c');
     const generic=fileNameFor('Vježba ../CON: nešto? (99)','1','q99');
     assert.match(generic,/^[a-z0-9-]+\.c$/);assert.notEqual(generic,fileNameFor('Vježba ../CON: nešto? (99)','1','q100'));
     const persisted=new Map(); const workspaceState={get:key=>persisted.get(key),keys:()=>[...persisted.keys()],update:async(key,value)=>persisted.set(key,value)};
