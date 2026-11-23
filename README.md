@@ -24,6 +24,23 @@ U izborniku Edgar+ → Theme dostupna je tema Burgundy Soft prema aktivnoj VS Co
 
 Klikni ikonu **Edgar++** na alatnoj traci preglednika. U odjeljku **Prikaz** uključi **Burgundy tema** za tamnu bordo temu ili isključi prekidač za povratak na izgled koji si odabrao u Edgaru ili Edgaru+.
 
+### Kako dodati boje u izvornom kodu
+
+U [firefox/content.js](firefox/content.js) pronađi CSS u varijabli `burgundyStyle`. Pravila pod `html.edgar-burgundy` primjenjuju se kad je prekidač **Burgundy tema** uključen.
+
+| Što želiš promijeniti | Što pronaći u CSS-u |
+| --- | --- |
+| Zaglavlje i alatna traka | `--edgar-surface-header` |
+| Primjeri ispisa i donja traka | `--edgar-surface-panel` |
+| Pozadina stranice i editora | `--edgar-surface-page` i `--edgar-surface-editor` |
+| Rubovi između površina | `--edgar-surface-edge` |
+| Ključne riječi, nizovi znakova, brojevi i komentari | Parovi selektora `.ace_keyword` / `.cm-keyword`, `.ace_string` / `.cm-string`, `.ace_numeric` / `.cm-number` i `.ace_comment` / `.cm-comment` |
+
+Primjerice, zamijeni `--edgar-surface-editor:#160D12;` s `--edgar-surface-editor:#181B24;` za plavosivu pozadinu editora. Za novu boju sintakse postavi isti `color` na oba odgovarajuća selektora. Edgar+ koristi Ace, a Edgarov ugrađeni editor koristi CodeMirror. Novo CSS pravilo dodaj u isti blok i ograniči ga selektorom `html.edgar-burgundy`.
+
+- **Firefox i LibreWolf:** učitaj `firefox/manifest.json` preko `about:debugging` → **This Firefox** → **Load Temporary Add-on**. Nakon izmjene klikni **Reload** uz dodatak pa osvježi Edgar.
+- **Chrome:** iz korijena repozitorija pokreni `python build-chrome.py --version 0.3.32`. Za izradu paketa treba Python s Pillowom (`python -m pip install Pillow`). Raspakiraj dobiveni ZIP u mapu koju si učitao preko **Load unpacked**, klikni **Reload** uz dodatak i osvježi Edgar.
+
 ## Chrome
 
 1. Raspakiraj `edgar-plus-plus-chrome.zip` u mapu koju ćeš zadržati na istom mjestu.
